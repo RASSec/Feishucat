@@ -4,7 +4,7 @@ A simple way of sending messages from the CLI output to your Feishu with webhook
 
 ## Installation
 
-- If you have go1.13+ compiler installed: `go build main.go`
+- If you have go1.13+ compiler installed: `go build -o feishucat  main.go`
 
 ## Configuration
 
@@ -18,7 +18,7 @@ export FEISHU_WEBHOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxx"
 It's very simple!
 
 ```bash
-▶ echo -e "Hello,\nworld!" | feishucat
+▶ echo -e "Hello,\nworld!" | ./feishucat
 ```
 
 ### Flags
