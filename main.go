@@ -16,7 +16,7 @@ import (
 var wg sync.WaitGroup
 
 func main() {
-	var msg := data{
+	var msg = data{
 	    MsgType: "text",
 	    Content: struct {
 		Text string `json:"text"`
