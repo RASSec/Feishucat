@@ -75,7 +75,10 @@ func isStdin() bool {
 }
 
 type data struct {
-	Text string `json:"text"`
+	MsgType string `json:"msg_type"`
+        Content struct {
+            Text string `json:"text"`
+          } `json:"content"`
 }
 
 func slackCat(url string, line string) {
