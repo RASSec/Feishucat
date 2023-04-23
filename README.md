@@ -1,11 +1,10 @@
-# slackcat
+# Feishucat
 
-A simple way of sending messages from the CLI output to your Slack with webhook.
+A simple way of sending messages from the CLI output to your Feishu with webhook.
 
 ## Installation
 
-- Download a prebuilt binary from [releases page](https://github.com/dwisiswant0/slackcat/releases/latest), unpack and run! or
-- If you have go1.13+ compiler installed: `go get github.com/dwisiswant0/slackcat`
+- If you have go1.13+ compiler installed: `go get github.com/RASSec/Feishucat`
 
 ## Configuration
 
