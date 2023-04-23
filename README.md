@@ -8,11 +8,9 @@ A simple way of sending messages from the CLI output to your Feishu with webhook
 
 ## Configuration
 
-**Step 1:** Get yours Slack incoming webhook URL [here](https://slack.com/intl/en-id/help/articles/115005265063-Incoming-webhooks-for-Slack).
-
-**Step 2** _(optional)_**:** Set `SLACK_WEBHOOK_URL` environment variable.
+**1** _(optional)_**:** Set `FEISHU_WEBHOOK_URL` environment variable.
 ```bash
-export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/xxx/xxx/xxx"
+export FEISHU_WEBHOOK_URL="https://open.feishu.cn/open-apis/bot/v2/hook/xxxxxxx"
 ```
 
 ## Usage
@@ -20,7 +18,7 @@ export SLACK_WEBHOOK_URL="https://hooks.slack.com/services/xxx/xxx/xxx"
 It's very simple!
 
 ```bash
-▶ echo -e "Hello,\nworld!" | slackcat
+▶ echo -e "Hello,\nworld!" | feishucat
 ```
 
 ### Flags
@@ -38,28 +36,6 @@ Usage of slackcat:
 The goal is to get automated alerts for interesting stuff!
 
 ```bash
-▶ assetfinder dw1.io | anew | slackcat -u https://hooks.slack.com/services/xxx/xxx/xxx
+▶ echo 123| feishucat -1
 ```
 
-The `-u` flag is optional if you've defined `SLACK_WEBHOOK_URL` environment variable.
-
-Slackcat also strips the ANSI colors from stdin to send messages, so you'll receive a clean message on your Slack!
-
-```bash
-▶ nuclei -l urls.txt -t cves/ | slackcat
-```
-
-![Proof](https://user-images.githubusercontent.com/25837540/90967983-4d29a100-e511-11ea-9138-28b6901856dc.png)
-
-### Line-by-line
-
-Instead of have to wait for previously executed program to finish, use the `-1` flag if you want to send messages on a line by line _(default: false)_.
-
-```bash
-▶ amass track -d domain.tld | slackcat -1
-```
-
-## Thanks
-
-- Inspired by [rez0](https://twitter.com/rez0__) [article](https://rez0.blog/hacking/2020/02/07/bugbounty-alert-automation-tips.html), that's why this tool was made!
-- [acarl005](https://github.com/acarl005) for his awesome stripansi.
