@@ -84,7 +84,7 @@ type data struct {
 
 func slackCat(url string, line string) {
 	data, _ := json.Marshal(data{
-		Text: stripansi.Strip(line),
+		MsgType: "msg_type",
 		Content: struct{ Text string }{Text: stripansi.Strip(line)},
 		})
 	http.Post(url, "application/json", strings.NewReader(string(data)))
