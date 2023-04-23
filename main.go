@@ -49,7 +49,7 @@ func main() {
 				MsgType: "text",
 				Content: struct{
 					Text string  `json:"text"`
-				}{Text: stripansi.Strip(lines)},
+				}{Text: stripansi.Strip(line)},
 			}
 				wg.Add(1)
 				go slackCat(msg,webhookURL, line)
@@ -65,7 +65,7 @@ func main() {
 				MsgType: "text",
 				Content: struct{ 
 					Text string  `json:"text"`
-				}{Text: stripansi.Strip(lines)},
+				}{Text: stripansi.Strip(line)},
 			}
 		wg.Add(1)
 		go slackCat(msg,webhookURL, lines)
