@@ -18,18 +18,18 @@ var wg sync.WaitGroup
 func main() {
 	var oneLine, verboseMode bool
 	var webhookURL, lines string
-	flag.StringVar(&webhookURL, "u", "", "Slack Webhook URL")
+	flag.StringVar(&webhookURL, "u", "", "Feishu Webhook URL")
 	flag.BoolVar(&oneLine, "1", false, "Send message line-by-line")
 	flag.BoolVar(&verboseMode, "v", false, "Verbose mode")
 	flag.Parse()
 
-	webhookEnv := os.Getenv("SLACK_WEBHOOK_URL")
+	webhookEnv := os.Getenv("FEISHU_WEBHOOK_URL")
 	if webhookEnv != "" {
 		webhookURL = webhookEnv
 	} else {
 		if webhookURL == "" {
 			if verboseMode {
-				fmt.Println("Slack Webhook URL not set!")
+				fmt.Println("Feishu Webhook URL not set!")
 			}
 		}
 	}
@@ -52,7 +52,7 @@ func main() {
 				}{Text: stripansi.Strip(line)},
 			}
 				wg.Add(1)
-				go slackCat(msg,webhookURL, line)
+				go feishuCat(msg,webhookURL, line)
 			}
 		} else {
 			lines += line
@@ -68,7 +68,7 @@ func main() {
 				}{Text: stripansi.Strip(lines)},
 			}
 		wg.Add(1)
-		go slackCat(msg,webhookURL, lines)
+		go feishuCat(msg,webhookURL, lines)
 	}
 	wg.Wait()
 }
@@ -94,7 +94,7 @@ type data struct {
 }
 
 
-func slackCat(msg data,url string, line string) {
+func feishuCat(msg data,url string, line string) {
 	data, _ := json.Marshal(msg)
 	http.Post(url, "application/json", strings.NewReader(string(data)))
 	wg.Done()
