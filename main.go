@@ -16,12 +16,6 @@ import (
 var wg sync.WaitGroup
 
 func main() {
-	var msg = data{
-	    MsgType: "text",
-	    Content: struct {
-		Text string `json:"text"`
-	    }{Text: stripansi.Strip(line)},
-	}
 	var oneLine, verboseMode bool
 	var webhookURL, lines string
 	flag.StringVar(&webhookURL, "u", "", "Slack Webhook URL")
@@ -51,6 +45,10 @@ func main() {
 		fmt.Println(line)
 		if oneLine {
 			if webhookURL != "" {
+				msg := data{
+				MsgType: "text",
+				Content: struct{ Text string }{Text: stripansi.Strip(lines)},
+			}
 				wg.Add(1)
 				go slackCat(msg,webhookURL, line)
 			}
@@ -61,6 +59,10 @@ func main() {
 	}
 
 	if !oneLine {
+		msg := data{
+				MsgType: "text",
+				Content: struct{ Text string }{Text: stripansi.Strip(lines)},
+			}
 		wg.Add(1)
 		go slackCat(msg,webhookURL, lines)
 	}
@@ -88,7 +90,7 @@ type data struct {
 }
 
 
-func slackCat(msg string,url string, line string) {
+func slackCat(msg data,url string, line string) {
 	data, _ := json.Marshal(msg)
 	http.Post(url, "application/json", strings.NewReader(string(data)))
 	wg.Done()
