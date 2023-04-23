@@ -16,8 +16,7 @@ import (
 var wg sync.WaitGroup
 
 func main() {
-	var msg;
-	msg := data{
+	var msg := data{
 	    MsgType: "text",
 	    Content: struct {
 		Text string `json:"text"`
@@ -53,7 +52,7 @@ func main() {
 		if oneLine {
 			if webhookURL != "" {
 				wg.Add(1)
-				go slackCat(webhookURL, line)
+				go slackCat(msg,webhookURL, line)
 			}
 		} else {
 			lines += line
@@ -63,7 +62,7 @@ func main() {
 
 	if !oneLine {
 		wg.Add(1)
-		go slackCat(webhookURL, lines)
+		go slackCat(msg,webhookURL, lines)
 	}
 	wg.Wait()
 }
@@ -89,7 +88,7 @@ type data struct {
 }
 
 
-func slackCat(url string, line string) {
+func slackCat(msg string,url string, line string) {
 	data, _ := json.Marshal(msg)
 	http.Post(url, "application/json", strings.NewReader(string(data)))
 	wg.Done()
