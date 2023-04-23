@@ -4,7 +4,7 @@ A simple way of sending messages from the CLI output to your Feishu with webhook
 
 ## Installation
 
-- If you have go1.13+ compiler installed: `go get github.com/RASSec/Feishucat`
+- If you have go1.13+ compiler installed: `go build main.go`
 
 ## Configuration
 
