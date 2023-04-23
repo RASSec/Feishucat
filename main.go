@@ -75,14 +75,18 @@ func isStdin() bool {
 }
 
 type data struct {
-	MsgType string `json:"msg_type"`
-        Content struct {
-            Text string `json:"text"`
-          } `json:"content"`
+    MsgType string `json:"msg_type"`
+    Content struct {
+        Text string `json:"text"`
+    } `json:"content"`
 }
 
+
 func slackCat(url string, line string) {
-	data, _ := json.Marshal(data{Text: stripansi.Strip(line)})
+	data, _ := json.Marshal(data{
+		Text: stripansi.Strip(line),
+		Content: struct{ Text string }{Text: stripansi.Strip(line)},
+		})
 	http.Post(url, "application/json", strings.NewReader(string(data)))
 	wg.Done()
 }
